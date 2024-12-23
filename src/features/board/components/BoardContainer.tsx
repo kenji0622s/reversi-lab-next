@@ -4,7 +4,7 @@ import Board from "@/features/board/components/Board";
 import { useState } from "react";
 import BoardValues from "@/features/board/board-values";
 import BoardController from "@/features/board/controller/board-controller";
-
+import BoardInfo from "@/features/board/components/BoardInfo";
 export default function BoardContainer() {
   const [boardValuesState, setBoardValuesState] = useState<BoardValues>({
     blackCells: [
@@ -31,18 +31,27 @@ export default function BoardContainer() {
   });
 
   function selectCell(row: number, col: number) {
-    const newBoardValuesState = BoardController.selectCell(
+    const isAvailable: boolean = BoardController.checkAvailable(
       row,
       col,
       boardValuesState
     );
-    setBoardValuesState(newBoardValuesState);
+
+    if (isAvailable) {
+      const newBoardValuesState: BoardValues = BoardController.updateBoardValues(
+        row,
+        col,
+        boardValuesState
+      );
+      setBoardValuesState(newBoardValuesState);
+    } else {
+      console.log("not available");
+    }
   }
 
   return (
-    <div>
-      <h1 className="text-2xl font-bold">Board Container</h1>
-      <div className="w-full h-2 bg-red-500"></div>
+    <div className="flex flex-col items-center justify-center">
+      <BoardInfo boardValuesState={boardValuesState} />
       <Board boardValuesState={boardValuesState} selectCell={selectCell} />
     </div>
   );

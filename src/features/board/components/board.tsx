@@ -1,5 +1,3 @@
-"use client";
-
 import BoardValues from "@/features/board/board-values";
 
 interface BoardProps {
@@ -45,31 +43,28 @@ export default function Board({ boardValuesState, selectCell }: BoardProps) {
   }
 
   return (
-    <div>
-      <p>{boardValuesState.turn}のターン</p>
-      <table>
-        <tbody>
-          {Array.from({ length: 8 }, (_, rowIndex) => (
-            <tr key={rowIndex + 1}>
-              {Array.from({ length: 8 }, (_, colIndex) => (
-                <td
-                  key={colIndex + 1}
-                  className="w-16 h-16 border border-black bg-emerald-600"
-                  onClick={() => selectCell(rowIndex + 1, colIndex + 1)}
-                >
-                  <div className="flex justify-center items-center h-full w-full">
-                    <div className={getCellStatus(rowIndex + 1, colIndex + 1)}>
-                      <span className="text-yellow-400">
-                        {rowIndex + 1}, {colIndex + 1}
-                      </span>
-                    </div>
+    <table>
+      <tbody>
+        {Array.from({ length: 8 }, (_, rowIndex) => (
+          <tr key={rowIndex + 1}>
+            {Array.from({ length: 8 }, (_, colIndex) => (
+              <td
+                key={colIndex + 1}
+                className="w-16 h-16 border border-black bg-emerald-600"
+                onClick={() => selectCell(rowIndex + 1, colIndex + 1)}
+              >
+                <div className="flex justify-center items-center h-full w-full">
+                  <div className={getCellStatus(rowIndex + 1, colIndex + 1)}>
+                    <span className="text-yellow-400">
+                      {rowIndex + 1}, {colIndex + 1}
+                    </span>
                   </div>
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+                </div>
+              </td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
   );
 }
