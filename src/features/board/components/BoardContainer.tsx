@@ -15,6 +15,12 @@ export default function BoardContainer() {
       [4, 5],
       [5, 4],
     ],
+    usedCells: [
+      [4, 4],
+      [5, 5],
+      [4, 5],
+      [5, 4],
+    ],
     blackAvailableCells: [
       [3, 5],
       [4, 6],

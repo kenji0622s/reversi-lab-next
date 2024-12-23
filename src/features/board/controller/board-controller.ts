@@ -1,5 +1,5 @@
 import BoardValues from "@/features/board/board-values";
-
+import BoardLogic from "@/features/board/controller/board-logic";
 class BoardController {
   static checkAvailable(
     row: number,
@@ -23,21 +23,61 @@ class BoardController {
     col: number,
     boardValues: BoardValues
   ): BoardValues {
-    let newBoardValues: BoardValues;
+    const blackCells = boardValues.blackCells;
+    const whiteCells = boardValues.whiteCells;
+    const usedCells = boardValues.usedCells;
+    let turn = boardValues.turn;
 
-    if (boardValues.turn === "black") {
-      newBoardValues = {
-        ...boardValues,
-        blackCells: [...boardValues.blackCells, [row, col]],
-        turn: "white",
-      };
+    if (turn === "black") {
+      blackCells.push([row, col]);
     } else {
-      newBoardValues = {
-        ...boardValues,
-        whiteCells: [...boardValues.whiteCells, [row, col]],
-        turn: "black",
-      };
+      whiteCells.push([row, col]);
     }
+    usedCells.push([row, col]);
+
+    const allDirectionCells = BoardLogic.getAllDirectionCells(row, col);
+    for (let i = 0; i < allDirectionCells.length; i++) {
+      BoardLogic.singleDirectionReverse(
+        allDirectionCells[i],
+        blackCells,
+        whiteCells,
+        turn
+      );
+    }
+    const availableCells = BoardLogic.updateAvailableCells(usedCells);
+    const blackAvailableCells = BoardLogic.updateBlackAvailableCells(
+      availableCells as [number, number][],
+      blackCells,
+      whiteCells
+    );
+    const whiteAvailableCells = BoardLogic.updateWhiteAvailableCells(
+      availableCells as [number, number][],
+      blackCells,
+      whiteCells
+    );
+    if (turn === "black") {
+      if (whiteAvailableCells.length > 0) {
+        turn = "white";
+      }
+    } else {
+      if (blackAvailableCells.length > 0) {
+        turn = "black";
+      }
+    }
+    const newBoardValues = {
+      blackCells,
+      whiteCells,
+      usedCells,
+      blackAvailableCells,
+      whiteAvailableCells,
+      turn,
+    };
+    console.log("blackCells:", blackCells);
+    console.log("whiteCells:", whiteCells);
+    console.log("usedCells:", usedCells);
+    console.log("blackAvailableCells:", blackAvailableCells);
+    console.log("whiteAvailableCells:", whiteAvailableCells);
+    console.log("turn:", turn);
 
     return newBoardValues;
   }
