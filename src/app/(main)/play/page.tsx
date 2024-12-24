@@ -3,7 +3,7 @@ import BoardContainer from "@/features/board/components/BoardContainer";
 const PlayPage = () => {
   return (
     <div>
-      <BoardContainer />
+      <BoardContainer mode="play" />
     </div>
   );
 };

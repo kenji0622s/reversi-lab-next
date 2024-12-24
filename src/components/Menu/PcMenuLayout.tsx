@@ -8,6 +8,7 @@ export default function PcMenuLayout() {
         <div className="flex gap-8 text-lg">
           <PcMenuLink href="/play" label="Play" />
           <PcMenuLink href="/challenge" label="Challenge" />
+          <PcMenuLink href="/simulation" label="Simulation" />
         </div>
       </div>
     </div>

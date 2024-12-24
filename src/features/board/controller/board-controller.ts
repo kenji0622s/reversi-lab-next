@@ -25,7 +25,7 @@ class BoardController {
   ): BoardValues {
     const blackCells = boardValues.blackCells;
     const whiteCells = boardValues.whiteCells;
-    const usedCells = boardValues.usedCells;
+    const usedCells = [...boardValues.blackCells, ...boardValues.whiteCells];
     let turn = boardValues.turn;
 
     if (turn === "black") {
@@ -72,12 +72,6 @@ class BoardController {
       whiteAvailableCells,
       turn,
     };
-    console.log("blackCells:", blackCells);
-    console.log("whiteCells:", whiteCells);
-    console.log("usedCells:", usedCells);
-    console.log("blackAvailableCells:", blackAvailableCells);
-    console.log("whiteAvailableCells:", whiteAvailableCells);
-    console.log("turn:", turn);
 
     return newBoardValues;
   }

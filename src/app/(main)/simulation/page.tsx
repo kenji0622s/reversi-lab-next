@@ -1,10 +1,10 @@
 import BoardContainer from "@/features/board/components/BoardContainer";
 
-const ChallengePage = () => {
+const SimulationPage = () => {
   return (
     <div>
-      <BoardContainer mode="challenge" />
+      <BoardContainer mode="simulation" />
     </div>
   );
 };
-export default ChallengePage
+export default SimulationPage;
