@@ -1,5 +1,5 @@
-import PcMenuIcon from "@/components/Menu/PcMenuIcon";
-import PcMenuLink from "@/components/Menu/PcMenuLink";
+import PcMenuIcon from "@/components/menu/PcMenuIcon";
+import PcMenuLink from "@/components/menu/PcMenuLink";
 export default function PcMenuLayout() {
   return (
     <div className="bg-neutral-200 flex justify-center items-center h-16 border-b-2 border-emerald-500 text-lg">
