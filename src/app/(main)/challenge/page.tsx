@@ -3,7 +3,7 @@ import BoardContainer from "@/features/board/components/BoardContainer";
 const ChallengePage = () => {
   return (
     <div>
-      <BoardContainer mode="challenge" />
+      <BoardContainer mode="challenge"/>
     </div>
   );
 };

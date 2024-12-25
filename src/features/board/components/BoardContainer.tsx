@@ -1,17 +1,43 @@
 "use client";
 
 import Board from "@/features/board/components/Board";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import BoardValues from "@/features/board/board-values";
 import BoardController from "@/features/board/controller/board-controller";
 import BoardInfo from "@/features/board/components/BoardInfo";
 import askBrain1   from "@/brains/brain1";
-// import askBrain2 from "@/brains/brain2";
+import db from "@/firebase/firebase";
+import {
+  collection,
+  getDocs,
+} from "firebase/firestore";
+
+
 interface BoardContainerProps {
   mode: string;
 }
 
 export default function BoardContainer({ mode }: BoardContainerProps) {
+  const [brains, setBrains] = useState<{ name: string; endpoint: string }[]>([]);
+
+  useEffect(() => {
+    const fetchBrains = async () => {
+      try {
+        const snapshot = await getDocs(collection(db, "brains"));
+        const brainsData = snapshot.docs.map(doc => ({
+          name: doc.data().name,
+          endpoint: doc.data().endpoint,
+        }));
+        setBrains(brainsData);
+        console.log(brainsData);
+      } catch (error) {
+        console.error("Error fetching brains:", error);
+      }
+    };
+
+    fetchBrains();
+  }, []);
+
   const [boardValuesState, setBoardValuesState] = useState<BoardValues>({
     blackCells: [
       [4, 4],
@@ -91,7 +117,6 @@ export default function BoardContainer({ mode }: BoardContainerProps) {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <p>{mode}</p>
       <BoardInfo boardValuesState={boardValuesState} />
       <Board boardValuesState={boardValuesState} selectCell={selectCell} />
     </div>

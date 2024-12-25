@@ -50,14 +50,14 @@ export default function Board({ boardValuesState, selectCell }: BoardProps) {
             {Array.from({ length: 8 }, (_, colIndex) => (
               <td
                 key={colIndex + 1}
-                className="w-16 h-16 border border-black bg-emerald-600"
+                className="w-16 h-16 border border-black bg-[#0BA875]"
                 onClick={() => selectCell(rowIndex + 1, colIndex + 1)}
               >
                 <div className="flex justify-center items-center h-full w-full">
                   <div className={getCellStatus(rowIndex + 1, colIndex + 1)}>
-                    <span className="text-yellow-400">
+                    {/* <span className="text-yellow-400">
                       {rowIndex + 1}, {colIndex + 1}
-                    </span>
+                    </span> */}
                   </div>
                 </div>
               </td>
