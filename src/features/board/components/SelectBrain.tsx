@@ -1,23 +1,26 @@
 "use client";
-
-import { useState } from "react";
-
-interface SelectBrainProps {
-  brains: {
-    id: string;
-    name: string;
-  }[];
+interface Brain {
+  id: string;
+  name: string;
+  endpoint: string;
 }
 
-export default function SelectBrain({ brains }: SelectBrainProps) {
-  const [selectedBrain, setSelectedBrain] = useState<string | null>(null);
+interface SelectBrainProps {
+  brains: Brain[];
+  selectedBrain: Brain;
+  selectBrain: (brain: Brain) => void;
+}
+
+export default function SelectBrain({ brains, selectedBrain, selectBrain }: SelectBrainProps) {
+  console.log(brains);
   return (
     <div>
-      <select name="" id="" onChange={(e) => setSelectedBrain(e.target.value)}>
+      <select name="" id="" onChange={(e) => selectBrain(brains.find((brain) => brain.id === e.target.value)!)}>
     {brains.map((brain) => (
       <option value={brain.id} key={brain.id}>{brain.name}</option>
-    ))}
-  </select>
-  <p>{selectedBrain}</p></div>
-  )
+        ))}
+      </select>
+      <p>{selectedBrain.name}</p>
+    </div>
+  );
 }

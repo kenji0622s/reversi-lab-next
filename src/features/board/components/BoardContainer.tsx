@@ -1,42 +1,29 @@
 "use client";
 
 import Board from "@/features/board/components/Board";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import BoardValues from "@/features/board/board-values";
 import BoardController from "@/features/board/controller/board-controller";
 import BoardInfo from "@/features/board/components/BoardInfo";
-import askBrain1   from "@/brains/brain1";
-import db from "@/firebase/firebase";
-import {
-  collection,
-  getDocs,
-} from "firebase/firestore";
-
-
+import askBrain1 from "@/brains/brain1";
+import SelectBrain from "@/features/board/components/SelectBrain";
 interface BoardContainerProps {
   mode: string;
+  brains: Brain[];
 }
 
-export default function BoardContainer({ mode }: BoardContainerProps) {
-  const [brains, setBrains] = useState<{ name: string; endpoint: string }[]>([]);
+interface Brain {
+  id: string;
+  name: string;
+  endpoint: string;
+}
 
-  useEffect(() => {
-    const fetchBrains = async () => {
-      try {
-        const snapshot = await getDocs(collection(db, "brains"));
-        const brainsData = snapshot.docs.map(doc => ({
-          name: doc.data().name,
-          endpoint: doc.data().endpoint,
-        }));
-        setBrains(brainsData);
-        console.log(brainsData);
-      } catch (error) {
-        console.error("Error fetching brains:", error);
-      }
-    };
+export default function BoardContainer({ mode, brains }: BoardContainerProps) {
+  const [selectedBrain, setSelectedBrain] = useState<Brain>(brains[0]);
 
-    fetchBrains();
-  }, []);
+  function selectBrain(brain: Brain) {
+    setSelectedBrain(brain); 
+  }
 
   const [boardValuesState, setBoardValuesState] = useState<BoardValues>({
     blackCells: [
@@ -117,6 +104,9 @@ export default function BoardContainer({ mode }: BoardContainerProps) {
 
   return (
     <div className="flex flex-col items-center justify-center">
+      {mode !== "play" && (
+        <SelectBrain brains={brains}  selectedBrain={selectedBrain}  selectBrain={selectBrain} />
+      )}
       <BoardInfo boardValuesState={boardValuesState} />
       <Board boardValuesState={boardValuesState} selectCell={selectCell} />
     </div>
