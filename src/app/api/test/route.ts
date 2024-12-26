@@ -1,5 +1,11 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
+import { NextResponse } from 'next/server'
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  res.status(200).json({ status: 'OK' });
+export async function GET() {
+  return NextResponse.json({ status: 'OK' })
 }
+
+export async function POST(request: Request) {
+  const data = await request.json()
+  return NextResponse.json({ status: 'OK', data })
+}
+
