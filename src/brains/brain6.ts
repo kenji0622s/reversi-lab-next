@@ -1,11 +1,11 @@
 import BoardValues from '@/features/board/board-values';
 
 import putRandam from '@/brains/logics/put-randam';
-import putCorner from '@/brains/logics/put-corner';
+import putAccordingToCellLevel from '@/brains/logics/put-according-to-cell-level';
 
-function askBrain2(boardValuesState: BoardValues): [number, number] {
+function askBrain6(boardValuesState: BoardValues): [number, number] {
     const { blackAvailableCells, whiteAvailableCells, turn } = boardValuesState;
-    console.log(turn + ": Brain2");
+    console.log(turn + ": Brain6");
     if (turn === "black") {
         return _strategy(blackAvailableCells) as [number, number];
     } else {
@@ -15,12 +15,12 @@ function askBrain2(boardValuesState: BoardValues): [number, number] {
 
 function _strategy(colorAvailableCells: [number, number][]) {
 
-    const corner = putCorner(colorAvailableCells);
-    if (corner) {
-        return corner;
+    const cell = putAccordingToCellLevel(colorAvailableCells);
+    if (cell) {
+        return cell;
     }
 
     return putRandam(colorAvailableCells);
 }
 
-export default askBrain2;
+export default askBrain6;

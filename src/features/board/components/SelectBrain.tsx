@@ -7,20 +7,24 @@ interface Brain {
 
 interface SelectBrainProps {
   brains: Brain[];
-  selectedBrain: Brain;
   selectBrain: (brain: Brain) => void;
 }
 
-export default function SelectBrain({ brains, selectedBrain, selectBrain }: SelectBrainProps) {
-  console.log(brains);
+export default function SelectBrain({ brains, selectBrain }: SelectBrainProps) {
   return (
-    <div>
-      <select name="" id="" onChange={(e) => selectBrain(brains.find((brain) => brain.id === e.target.value)!)}>
-    {brains.map((brain) => (
-      <option value={brain.id} key={brain.id}>{brain.name}</option>
-        ))}
-      </select>
-      <p>{selectedBrain.name}</p>
-    </div>
+    <select
+      className="bg-neutral-50 text-neutral-900 ring-2 ring-neutral-400 px-6 py-2 font-bold rounded-md"
+      name=""
+      id=""
+      onChange={(e) =>
+        selectBrain(brains.find((brain) => brain.id === e.target.value)!)
+      }
+    >
+      {brains.map((brain) => (
+        <option value={brain.id} key={brain.id}>
+          {brain.name}
+        </option>
+      ))}
+    </select>
   );
 }

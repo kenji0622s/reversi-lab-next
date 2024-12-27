@@ -1,5 +1,6 @@
-import putRandam from "./logics/put-randam";
 import BoardValues from "@/features/board/board-values";
+
+import putRandam from "@/brains/logics/put-randam";
 
 function askBrain1(boardValuesState: BoardValues) {
     const { blackAvailableCells, whiteAvailableCells, turn } = boardValuesState;

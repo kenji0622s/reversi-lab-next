@@ -5,8 +5,11 @@ import { useState } from "react";
 import BoardValues from "@/features/board/board-values";
 import BoardController from "@/features/board/controller/board-controller";
 import BoardInfo from "@/features/board/components/BoardInfo";
-import askBrain1 from "@/brains/brain1";
 import SelectBrain from "@/features/board/components/SelectBrain";
+import StartButton from "@/features/board/components/StartButton";
+import SelectPlayerTurn from "@/features/board/components/SelectPlayerTurn";
+import { askBrains } from "@/brains/exportAskBrains";
+
 interface BoardContainerProps {
   mode: string;
   brains: Brain[];
@@ -20,9 +23,24 @@ interface Brain {
 
 export default function BoardContainer({ mode, brains }: BoardContainerProps) {
   const [selectedBrain, setSelectedBrain] = useState<Brain>(brains[0]);
+  const askBrain = askBrains[selectedBrain.name];
+  const [isReady, setIsReady] = useState(false);
+  const [playerTurn, setPlayerTurn] = useState("black");
+  const brainTurn = playerTurn === "black" ? "white" : "black";
 
   function selectBrain(brain: Brain) {
     setSelectedBrain(brain); 
+  }
+
+  function gameStart() {
+    setIsReady(true);
+    if(brainTurn === "black") {
+      brainSelectCell(boardValuesState);
+    }
+  }
+
+  function selectPlayerTurn(turn: string) {
+    setPlayerTurn(turn);
   }
 
   const [boardValuesState, setBoardValuesState] = useState<BoardValues>({
@@ -64,7 +82,7 @@ export default function BoardContainer({ mode, brains }: BoardContainerProps) {
       );
       setBoardValuesState(newBoardValuesState);
 
-      if (mode === "challenge" && newBoardValuesState.turn === "white") {
+      if (mode === "challenge" && brainTurn === newBoardValuesState.turn) {
         setTimeout(() => {
           brainSelectCell(newBoardValuesState);
         }, 500);
@@ -79,7 +97,7 @@ export default function BoardContainer({ mode, brains }: BoardContainerProps) {
   }
 
   function brainSelectCell(boardValuesState: BoardValues): BoardValues {
-    const brainAnswerCell = askBrain1(boardValuesState);
+    const brainAnswerCell = askBrain(boardValuesState);
     const newBoardValuesState = BoardController.updateBoardValues(
       brainAnswerCell[0],
       brainAnswerCell[1],
@@ -99,13 +117,18 @@ export default function BoardContainer({ mode, brains }: BoardContainerProps) {
         simulationBoardValuesState.blackAvailableCells.length === 0 &&
         simulationBoardValuesState.whiteAvailableCells.length === 0;
     }
-    console.log(simulationBoardValuesState);
   }
 
   return (
-    <div className="flex flex-col items-center justify-center">
-      {mode !== "play" && (
-        <SelectBrain brains={brains}  selectedBrain={selectedBrain}  selectBrain={selectBrain} />
+    <div className="flex flex-col items-center justify-center relative">
+      {(mode !== "play" && !isReady) && (
+        <div className="flex items-center justify-center absolute top-0 left-0 w-full h-screen bg-black bg-opacity-70">
+          <div className="flex flex-col items-center gap-8 bg-neutral-50 p-12 rounded-md">
+          <SelectBrain brains={brains}  selectBrain={selectBrain} />
+          <SelectPlayerTurn playerTurn={playerTurn} selectPlayerTurn={selectPlayerTurn} />
+          <StartButton gameStart={gameStart} />
+          </div>
+        </div>
       )}
       <BoardInfo boardValuesState={boardValuesState} />
       <Board boardValuesState={boardValuesState} selectCell={selectCell} />
