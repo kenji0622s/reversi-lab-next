@@ -1,11 +1,12 @@
 import BoardValuesModel from "@/models/board-values-model";
 
-interface BoardProps {
+interface SimulationBoardProps {
   boardValuesState: BoardValuesModel;
-  selectCell: (row: number, col: number) => void;
 }
 
-export default function Board({ boardValuesState, selectCell }: BoardProps) {
+export default function SimulationBoard({
+  boardValuesState,
+}: SimulationBoardProps) {
   function getCellStatus(rowIndex: number, colIndex: number): string {
     if (
       boardValuesState.blackCells
@@ -51,7 +52,6 @@ export default function Board({ boardValuesState, selectCell }: BoardProps) {
               <td
                 key={colIndex + 1}
                 className="w-16 h-16 border border-black bg-[#0BA875]"
-                onClick={() => selectCell(rowIndex + 1, colIndex + 1)}
               >
                 <div className="flex justify-center items-center h-full w-full">
                   <div className={getCellStatus(rowIndex + 1, colIndex + 1)}>

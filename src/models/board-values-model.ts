@@ -1,4 +1,4 @@
-interface BoardValues {
+interface BoardValuesModel {
   blackCells: [number, number][];
   whiteCells: [number, number][];
   blackAvailableCells: [number, number][];
@@ -6,4 +6,6 @@ interface BoardValues {
   turn: string;
 }
 
-export default BoardValues;
+
+
+export default BoardValuesModel;

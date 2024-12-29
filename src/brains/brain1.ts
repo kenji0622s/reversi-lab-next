@@ -1,8 +1,8 @@
-import BoardValues from "@/features/board/board-values";
+import BoardValuesModel from "@/models/board-values-model";
 
 import putRandam from "@/brains/logics/put-randam";
 
-function askBrain1(boardValuesState: BoardValues) {
+function askBrain1(boardValuesState: BoardValuesModel): [number, number] {
     const { blackAvailableCells, whiteAvailableCells, turn } = boardValuesState;
     console.log(turn + ": Brain1");
     if (turn === "black") {

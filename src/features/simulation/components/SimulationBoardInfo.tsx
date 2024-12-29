@@ -1,10 +1,10 @@
-import BoardValues from "@/features/board/board-values";
+import BoardValuesModel from "@/models/board-values-model";
 
-interface BoardInfoProps {
-  boardValuesState: BoardValues;
+interface SimulationBoardInfoProps {
+  boardValuesState: BoardValuesModel;
 }
 
-export default function BoardInfo({ boardValuesState }: BoardInfoProps) {
+export default function SimulationBoardInfo({ boardValuesState }: SimulationBoardInfoProps) {
   const {
     turn,
     blackCells,

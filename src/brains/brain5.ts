@@ -1,4 +1,4 @@
-import BoardValues from '@/features/board/board-values';
+import BoardValuesModel from '@/models/board-values-model';
 
 import putRandam from '@/brains/logics/put-randam';
 import putCorner from '@/brains/logics/put-corner';
@@ -6,7 +6,7 @@ import filterAroundCorner from '@/brains/logics/filter-around-corner';
 import putAroundCornerNext from '@/brains/logics/put-around-corner-next';
 import putAroundCenter from '@/brains/logics/put-around-center';
 
-function askBrain5(boardValuesState: BoardValues): [number, number] {
+function askBrain5(boardValuesState: BoardValuesModel): [number, number] {
     const { blackAvailableCells, whiteAvailableCells, turn } = boardValuesState;
     console.log(turn + ": Brain5");
     if (turn === "black") {

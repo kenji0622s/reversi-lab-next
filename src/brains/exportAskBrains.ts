@@ -4,10 +4,10 @@ import askBrain3 from "./brain3";
 import askBrain4 from "./brain4";
 import askBrain5 from "./brain5";
 import askBrain6 from "./brain6";
-import BoardValues from "@/features/board/board-values";
+import BoardValuesModel from "@/models/board-values-model";
 
 interface AskBrainFunction {
-    (boardValues: BoardValues): [number, number];
+    (boardValues: BoardValuesModel): [number, number];
 }
 
 export const askBrains: { [key: string]: AskBrainFunction } = {

@@ -1,10 +1,10 @@
-import BoardValues from '@/features/board/board-values';
+import BoardValuesModel from '@/models/board-values-model';
 
 import putRandam from '@/brains/logics/put-randam';
 import putCorner from '@/brains/logics/put-corner';
 import filterAroundCorner from '@/brains/logics/filter-around-corner';
 
-function askBrain3(boardValuesState: BoardValues): [number, number] {
+function askBrain3(boardValuesState: BoardValuesModel): [number, number] {
     const { blackAvailableCells, whiteAvailableCells, turn } = boardValuesState;
     console.log(turn + ": Brain3");
     if (turn === "black") {

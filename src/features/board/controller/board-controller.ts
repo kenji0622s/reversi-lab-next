@@ -1,10 +1,10 @@
-import BoardValues from "@/features/board/board-values";
+import BoardValuesModel from "@/models/board-values-model";
 import BoardLogic from "@/features/board/controller/board-logic";
 class BoardController {
   static checkAvailable(
     row: number,
     col: number,
-    boardValues: BoardValues
+    boardValues: BoardValuesModel
   ): boolean {
     const isBlackAvailable = boardValues.blackAvailableCells
       .map((cell) => cell[0] === row && cell[1] === col)
@@ -21,8 +21,8 @@ class BoardController {
   static updateBoardValues(
     row: number,
     col: number,
-    boardValues: BoardValues
-  ): BoardValues {
+    boardValues: BoardValuesModel
+  ): BoardValuesModel {
     const blackCells = boardValues.blackCells;
     const whiteCells = boardValues.whiteCells;
     const usedCells = [...boardValues.blackCells, ...boardValues.whiteCells];

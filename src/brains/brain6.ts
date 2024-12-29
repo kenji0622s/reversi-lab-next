@@ -1,9 +1,9 @@
-import BoardValues from '@/features/board/board-values';
+import BoardValuesModel from '@/models/board-values-model';
 
 import putRandam from '@/brains/logics/put-randam';
 import putAccordingToCellLevel from '@/brains/logics/put-according-to-cell-level';
 
-function askBrain6(boardValuesState: BoardValues): [number, number] {
+function askBrain6(boardValuesState: BoardValuesModel): [number, number] {
     const { blackAvailableCells, whiteAvailableCells, turn } = boardValuesState;
     console.log(turn + ": Brain6");
     if (turn === "black") {

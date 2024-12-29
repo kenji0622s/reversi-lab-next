@@ -1,17 +1,13 @@
-import BoardContainer from "@/features/board/components/BoardContainer";
+import BrainModel from "@/models/brain-model";
+import SimulationBoardContainer from "@/features/simulation/components/SimulationBoardContainer";
 import db from "@/firebase/server";
 import {
   collection,
   getDocs,
 } from "firebase/firestore";
 
-interface Brain {
-  id: string;
-  name: string;
-  endpoint: string;
-}
 
-const brains: Brain[] = await getDocs(collection(db, "brains")).then((snapshot) =>
+const brains: BrainModel[] = await getDocs(collection(db, "brains")).then((snapshot) =>
   snapshot.docs.map((doc) => {
     return {
       id: doc.id,
@@ -24,7 +20,7 @@ const brains: Brain[] = await getDocs(collection(db, "brains")).then((snapshot) 
 const SimulationPage = () => {
   return (
     <div>
-      <BoardContainer mode="simulation" brains={brains}/>
+      <SimulationBoardContainer brains={brains}/>
     </div>
   );
 };
